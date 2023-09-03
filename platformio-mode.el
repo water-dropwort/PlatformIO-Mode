@@ -62,12 +62,19 @@
   :type 'string)
 
 
+(defcustom path-to-platformio "platformio"
+  "PlatformIO binary path."
+  :group 'platformio
+  :type  'string)
+
+
 (define-compilation-mode platformio-compilation-mode "PIOCompilation"
   "PlatformIO specific `compilation-mode' derivative."
   (setq-local compilation-scroll-output t)
   (require 'ansi-color)
   (add-hook 'compilation-filter-hook
             'platformio-compilation-filter-hook nil t))
+
 
 (defun platformio-compilation-filter-hook ()
   "Apply colors."
@@ -92,7 +99,7 @@
 (defun platformio--exec (target)
   "Call `platformio ... TARGET' in the root of the project."
   (let ((default-directory (projectile-project-root))
-        (cmd (concat "platformio -f -c emacs " target)))
+        (cmd (concat path-to-platformio " -f -c emacs " target)))
     (unless default-directory
       (user-error "Not in a projectile project, aborting"))
     (save-some-buffers (not compilation-ask-about-save)

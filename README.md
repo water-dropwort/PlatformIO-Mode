@@ -53,3 +53,10 @@ Here is a sample config using PlatformIO-Mode in conjunction with [ccls](https:/
                            (lsp-deferred)
                            (platformio-conditionally-enable)))
 ```
+
+# カスタマイズメモ
+## インストール
+emacs上で、`M-x package-install-file`を実行し、platformio-mode.elファイルを指定する。処理が完了すると、`package-user-dir`変数の場所にautoloadファイルとかが作成される。
+
+## 変更点
+- Platformioのバイナリが`~/.local/bin`配下に配置されていたが、Emacs上で確認したPATH環境変数にそのディレクトリがなかったため、各コマンドが実行できなかった。PATHに追加する方法がよくわからなかったので、path-to-platformio変数を追加して、実行ファイルのパスを指定できるようにした。
